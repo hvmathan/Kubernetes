@@ -1,21 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind:  Deployment
 metadata:
-  name: nginx
+  name: nginx-deploy
   labels:
-    tier: backend
+    env: demo
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: v1
-      tier: backend
   template:
     metadata:
       labels:
-        app: v1
-        tier: backend
+        env: demo
+      name: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.23.4
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      env: demo
